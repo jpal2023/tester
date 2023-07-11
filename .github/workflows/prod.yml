@@ -1,0 +1,16 @@
+name: Production Deployment
+
+on:
+  release:
+    types:
+      - published
+
+jobs:
+  deploy-production:
+    needs:
+      - deploy-staging
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+    steps:
+      - name: Deploy to Production
+        run: echo "production deployment"

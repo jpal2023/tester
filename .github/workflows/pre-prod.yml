@@ -1,0 +1,42 @@
+name: "Build and Deploy"
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    steps:
+      - name: Setup ECR
+        run: echo "setup ECR"
+
+  build:
+    needs:
+      - setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        run: echo "checkout code..."
+
+      - name: Build
+        run: echo "building artifacts..."
+
+      - name: Lint
+        run: echo "Checking quality..."
+
+  deploy-staging:
+    needs:
+      - build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy
+        run: echo "Deploying to AWS..."
+
+      - name: Cleanup
+        run: echo "Cleanup part.."
