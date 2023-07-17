@@ -1,0 +1,1083 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Provides services for PreviewMe meta data.",
+    "version": "v1",
+    "title": "PreviewMe Meta Service"
+  },
+  "basePath": "https://api.development.previewme.co/previewme-meta-service",
+  "tags": [
+    {
+      "name": "Workspaces"
+    },
+    {
+      "name": "Authenticated Preview"
+    },
+    {
+      "name": "Public Preview"
+    }
+  ],
+  "paths": {
+    "/api/organization": {
+      "get": {
+        "tags": [
+          "Workspaces"
+        ],
+        "summary": "Query the organizations",
+        "description": "",
+        "operationId": "getOrganizations",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "security": [
+          {
+            "jwt": ["header"]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operation successful",
+            "schema": {
+              "$ref": "#/definitions/OrganizationList"
+            }
+          }
+        }
+      }
+    },
+    "/api/preview/{previewId}/details": {
+      "get": {
+        "tags": [
+          "Authenticated Preview"
+        ],
+        "summary": "Get preview details including content blocks and their values",
+        "description": "",
+        "operationId": "getPreviewDetails",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "previewId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "organizationId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operation successful",
+            "schema": {
+              "$ref": "#/definitions/PreviewDto"
+            }
+          }
+        }
+      }
+    },
+    "/api/preview/{previewId}/updatePublished": {
+      "patch": {
+        "tags": [
+          "Authenticated Preview"
+        ],
+        "summary": "Set published value to true or false",
+        "description": "",
+        "operationId": "updatePublished",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "previewId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "published",
+            "in": "query",
+            "required": true,
+            "type": "boolean"
+          },
+          {
+            "name": "organizationId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operation successful"
+          }
+        }
+      }
+    },
+    "/api/preview/{previewId}/updateTitle": {
+      "patch": {
+        "tags": [
+          "Authenticated Preview"
+        ],
+        "summary": "Update preview title",
+        "description": "",
+        "operationId": "updateTitle",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "previewId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "title",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "organizationId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operation successful"
+          }
+        }
+      }
+    },
+    "/api/preview/{previewId}/updateSubtitle": {
+      "patch": {
+        "tags": [
+          "Authenticated Preview"
+        ],
+        "summary": "Update preview subtitle",
+        "description": "",
+        "operationId": "updateSubtitle",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "previewId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "subtitle",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "organizationId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operation successful"
+          }
+        }
+      }
+    },
+    "/api/preview/{previewId}/duplicate": {
+      "post": {
+        "tags": [
+          "Authenticated Preview"
+        ],
+        "summary": "Duplicate a preview",
+        "description": "",
+        "operationId": "duplicatePreview",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "previewId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "organizationId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/Duplicate Preview Request Dto"
+            }
+          }
+        ],
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operation successful"
+          }
+        }
+      }
+    },
+    "/api/publishedPreview/{previewId}/details": {
+      "get": {
+        "tags": [
+          "Public Preview"
+        ],
+        "summary": "Get shareable published preview details including content blocks and their values",
+        "description": "",
+        "operationId": "getPreviewDetails_1",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "previewId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operation successful",
+            "schema": {
+              "$ref": "#/definitions/PreviewDto"
+            }
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "jwt": {
+      "description": "JWT Bearer token",
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "PreviewDto": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "previewType": {
+          "type": "string"
+        },
+        "template": {
+          "type": "boolean"
+        },
+        "templateId": {
+          "type": "string"
+        },
+        "publishedPreviewId": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "draft",
+            "published",
+            "unpublished",
+            "suspended"
+          ]
+        },
+        "magicLinkCode": {
+          "type": "string"
+        },
+        "logoUrl": {
+          "type": "string"
+        },
+        "templateDesktopUrl": {
+          "type": "string"
+        },
+        "templateMobileUrl": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "startDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "firstPublishDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "lastPublishDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "closedTemplate": {
+          "type": "boolean"
+        },
+        "startMessage": {
+          "type": "string"
+        },
+        "nameEditable": {
+          "type": "boolean"
+        },
+        "templateName": {
+          "type": "string"
+        },
+        "userId": {
+          "type": "string"
+        },
+        "privateTemplate": {
+          "type": "boolean"
+        },
+        "singular": {
+          "type": "boolean"
+        },
+        "archived": {
+          "type": "boolean"
+        },
+        "suspended": {
+          "type": "boolean"
+        },
+        "starred": {
+          "type": "boolean"
+        },
+        "titlePattern": {
+          "type": "string"
+        },
+        "subtitlePattern": {
+          "type": "string"
+        },
+        "templateUsageType": {
+          "type": "string",
+          "enum": [
+            "invitation",
+            "adhoc",
+            "any"
+          ]
+        },
+        "theme": {
+          "type": "string",
+          "enum": [
+            "dark",
+            "light",
+            "forest",
+            "contrast",
+            "white",
+            "sky",
+            "business-blue",
+            "rooster",
+            "crimson",
+            "re-leased",
+            "vooba",
+            "aspire-people"
+          ]
+        },
+        "contentBlocks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ContentBlockDto"
+          }
+        },
+        "previewCategory": {
+          "type": "string",
+          "enum": [
+            "individual",
+            "business"
+          ]
+        },
+        "dashboardTitlePattern": {
+          "type": "string"
+        },
+        "dashboardSubtitlePattern": {
+          "type": "string"
+        },
+        "businessLogoImageStorageId": {
+          "type": "string"
+        },
+        "invitationTemplateMobileUrl": {
+          "type": "string"
+        },
+        "invitationTemplateDesktopUrl": {
+          "type": "string"
+        },
+        "organizationId": {
+          "type": "string"
+        },
+        "givenName": {
+          "type": "string"
+        },
+        "familyName": {
+          "type": "string"
+        },
+        "duplicate": {
+          "type": "boolean"
+        },
+        "title": {
+          "type": "string"
+        },
+        "subtitle": {
+          "type": "string"
+        },
+        "previewTagDetail": {
+          "$ref": "#/definitions/PreviewDto"
+        },
+        "invitation": {
+          "$ref": "#/definitions/Invitation Dto"
+        },
+        "invitationSuccessPage": {
+          "$ref": "#/definitions/Invitation Success Page Dto"
+        }
+      },
+      "description": "Preview DTO"
+    },
+    "PreviewDocumentsDto": {
+      "type": "object",
+      "properties": {
+        "previewLite": {
+          "$ref": "#/definitions/PreviewLiteDto"
+        },
+        "contentBlockDtoList": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ContentBlockDto"
+          }
+        }
+      },
+      "description": "List of all documents belonging to a preview"
+    },
+    "PreviewCategoryCountDto": {
+      "type": "object",
+      "properties": {
+        "overLimitForFreeBusinessPreviews": {
+          "type": "boolean"
+        },
+        "overLimitForFreeIndividualPreviews": {
+          "type": "boolean"
+        },
+        "businessPreviewsCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "individualPreviewsCount": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "PreviewSummariesResponseDto": {
+      "type": "object",
+      "properties": {
+        "previewSummaries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PreviewDto"
+          }
+        },
+        "previewsCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "archivedPreviewsCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "suspendedPreviewsCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "itemCount": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "description": "Preview Summaries Response DTO"
+    },
+    "PreviewLiteDto": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "templateName": {
+          "type": "string"
+        },
+        "titlePattern": {
+          "type": "string"
+        },
+        "subtitlePattern": {
+          "type": "string"
+        },
+        "firstPublishDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "invitation": {
+          "$ref": "#/definitions/Invitation Dto"
+        },
+        "lookupValues": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LookupValueDto"
+          }
+        },
+        "dashboardTitlePattern": {
+          "type": "string"
+        },
+        "dashboardSubtitlePattern": {
+          "type": "string"
+        }
+      }
+    },
+    "PreviewSummaryDto": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "firstPublishDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "givenName": {
+          "type": "string"
+        },
+        "familyName": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "phoneNumber": {
+          "type": "string"
+        },
+        "profileImageId": {
+          "type": "string"
+        },
+        "starred": {
+          "type": "boolean"
+        },
+        "viewed": {
+          "type": "boolean"
+        },
+        "label": {
+          "type": "string"
+        }
+      },
+      "description": "Preview Summary DTO"
+    },
+    "PreviewVideoChaptersDto": {
+      "type": "object",
+      "properties": {
+        "previewLite": {
+          "$ref": "#/definitions/PreviewLiteDto"
+        },
+        "videoChapters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/VideoChapterDto"
+          }
+        }
+      },
+      "description": "List of all video chapters belonging to a preview"
+    },
+    "Preview View Count Dto": {
+      "type": "object",
+      "properties": {
+        "category": {
+          "type": "string"
+        },
+        "count": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "description": "Preview View Count DTO"
+    },
+    "Duplicate Preview Request Dto": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "subTitle": {
+          "type": "string"
+        }
+      },
+      "description": "Duplicate Preview Request DTO"
+    },
+    "Invitation Dto": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "userId": {
+          "type": "string"
+        },
+        "templateId": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "ownerName": {
+          "type": "string"
+        },
+        "organizationId": {
+          "type": "string"
+        },
+        "startDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "instructions": {
+          "type": "string"
+        },
+        "industries": {
+          "type": "string"
+        },
+        "archived": {
+          "type": "boolean"
+        },
+        "closed": {
+          "type": "boolean"
+        },
+        "open": {
+          "type": "boolean"
+        },
+        "sendEmailToInviter": {
+          "type": "boolean"
+        },
+        "previewCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "previews": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PreviewSummaryDto"
+          }
+        },
+        "businessLogoImageStorageId": {
+          "type": "string"
+        },
+        "invitationSuccessPage": {
+          "$ref": "#/definitions/Invitation Success Page Dto"
+        },
+        "videoCategoryTemplates": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/VideoCategoryTemplateDto"
+          }
+        }
+      },
+      "description": "Invitation DTO"
+    },
+    "Invitation Success Page Dto": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "returnLinkTitle": {
+          "type": "string"
+        },
+        "returnLink": {
+          "type": "string"
+        },
+        "logo": {
+          "type": "string"
+        }
+      },
+      "description": "Invitation Success Page DTO"
+    },
+    "LookupValueDto": {
+      "type": "object",
+      "properties": {
+        "lookupTag": {
+          "type": "string",
+          "enum": [
+            "givenName",
+            "familyName",
+            "email",
+            "phoneNumber",
+            "profileImage",
+            "jobTitle",
+            "orgName",
+            "previewTitle",
+            "previewSubtitle",
+            "sportsBioTitle",
+            "quickCommsSubject"
+          ]
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "VideoCategoryTemplateDto": {
+      "type": "object",
+      "properties": {
+        "videoCategoryId": {
+          "type": "string"
+        },
+        "videoCategoryIdTitle": {
+          "type": "string"
+        },
+        "helperText": {
+          "type": "string"
+        },
+        "position": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "format": {
+          "type": "string"
+        },
+        "formatDisplay": {
+          "type": "string"
+        }
+      },
+      "description": "Video Category Template DTO"
+    },
+    "VideoChapterDto": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "videoCategoryId": {
+          "type": "string"
+        },
+        "rawVideoStorageId": {
+          "type": "string"
+        },
+        "editedVideoStorageId": {
+          "type": "string"
+        },
+        "startOffsetTime": {
+          "type": "number",
+          "format": "double"
+        },
+        "endOffsetTime": {
+          "type": "number",
+          "format": "double"
+        },
+        "duration": {
+          "type": "number",
+          "format": "double"
+        },
+        "width": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "height": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "teleprompterText": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "originalMp4Url": {
+          "type": "string"
+        },
+        "trimmedMp4Url": {
+          "type": "string"
+        },
+        "thumbnailUrl": {
+          "type": "string"
+        },
+        "profileImageStorageId": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "description": "Video Chapter DTO"
+    },
+    "VideoCategoryDto": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "description": "Video Category DTO"
+    },
+    "ContentBlockFieldDto": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "controlType": {
+          "type": "string"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "formLabel": {
+          "type": "string"
+        },
+        "previewLabel": {
+          "type": "string"
+        },
+        "cssClasses": {
+          "type": "string"
+        },
+        "placeholder": {
+          "type": "string"
+        },
+        "instructions": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        },
+        "fieldSetId": {
+          "type": "string"
+        },
+        "editable": {
+          "type": "boolean"
+        },
+        "parentId": {
+          "type": "string"
+        },
+        "lookupTag": {
+          "type": "string",
+          "enum": [
+            "givenName",
+            "familyName",
+            "email",
+            "phoneNumber",
+            "profileImage",
+            "jobTitle",
+            "orgName",
+            "previewTitle",
+            "previewSubtitle",
+            "sportsBioTitle",
+            "quickCommsSubject"
+          ]
+        },
+        "options": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ContentBlockFieldDto"
+          }
+        },
+        "hiddenFromPublishedPreview": {
+          "type": "boolean"
+        },
+        "highlightPosition": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "tags": {
+          "type": "string"
+        },
+        "format": {
+          "type": "string"
+        },
+        "videoChapter": {
+          "$ref": "#/definitions/VideoChapterDto"
+        }
+      },
+      "description": "Content Block Field DTO"
+    },
+    "ContentBlockFieldReorderRequestDto": {
+      "type": "object",
+      "properties": {
+        "fieldIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "Specifies order of content block fields"
+    },
+    "ContentBlockSaveRequestDto": {
+      "type": "object",
+      "properties": {
+        "values": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ContentBlockFieldDto"
+          }
+        }
+      },
+      "description": "List of content block fields to be saved"
+    },
+    "ContentBlockDto": {
+      "type": "object",
+      "properties": {
+        "oldPassword": {
+          "type": "string"
+        },
+        "newPassword": {
+          "type": "string"
+        }
+      },
+      "description": "Content Block DTO"
+    },
+    "ContentBlockTypeDto": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "description": "Content Block Type DTO"
+    },
+    "ChargePreviewDto": {
+      "type": "object",
+      "properties": {
+        "payment": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "Organization": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "users": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Organization"
+          }
+        },
+        "invites": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Organization"
+          }
+        },
+        "freeTrial": {
+          "type": "boolean"
+        },
+        "industries": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "profileImageStorageId": {
+          "type": "string"
+        },
+        "billingEmailAddress": {
+          "type": "string"
+        }
+      },
+      "description": "Provides information on the organization"
+    },
+    "OrganizationList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Organization"
+      }
+    }
+  }
+}
