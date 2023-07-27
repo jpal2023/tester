@@ -18,12 +18,12 @@
     }
   ],
   "paths": {
-    "/api/organization": {
+    "/api/ce/organization": {
       "get": {
         "tags": [
           "Workspaces"
         ],
-        "summary": "Query the organizations",
+        "summary": "Query the workspaces based on authenticated user, the current workspace can be found in localstorage with key [current-workspace]",
         "description": "",
         "operationId": "getOrganizations",
         "produces": [
@@ -40,6 +40,64 @@
             "description": "Operation successful",
             "schema": {
               "$ref": "#/definitions/OrganizationList"
+            }
+          }
+        }
+      }
+    },
+    "/api/ce/preview/summaries": {
+      "get": {
+        "tags": [
+          "Authenticated Preview"
+        ],
+        "summary": "Get list of published Previews by Organization Id",
+        "description": "",
+        "operationId": "getPreviewsByOrganizationID",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "organizationId",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "tag",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "security": [
+          {
+            "jwt": ["header"]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operation successful",
+            "schema": {
+              "$ref": "#/definitions/PreviewFullChromeExtDto"
             }
           }
         }
@@ -298,6 +356,37 @@
     }
   },
   "definitions": {
+    "PreviewChromeExtDto": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "primaryTitle": {
+          "type": "string"
+        },
+        "primarySubtitle": {
+          "type": "string"
+        },
+        "previewGifUrl": {
+          "type": "string"
+        },
+        "lastPublishDate": {
+          "type": "string"
+        }
+      }
+    },
+    "PreviewFullChromeExtDto": {
+      "type": "object",
+      "properties": {
+        "currentPage": { "type":  "integer" },
+        "totalResult": { "type":  "integer" },
+        "data": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/PreviewChromeExtDto" }
+        }
+      }
+    },
     "PreviewDto": {
       "type": "object",
       "properties": {
@@ -1043,31 +1132,10 @@
         "name": {
           "type": "string"
         },
-        "users": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Organization"
-          }
-        },
-        "invites": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Organization"
-          }
-        },
         "freeTrial": {
           "type": "boolean"
         },
-        "industries": {
-          "type": "string"
-        },
-        "country": {
-          "type": "string"
-        },
-        "profileImageStorageId": {
-          "type": "string"
-        },
-        "billingEmailAddress": {
+        "profileImageURL": {
           "type": "string"
         }
       },
