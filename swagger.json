@@ -1,8 +1,8 @@
 {
   "swagger": "2.0",
   "info": {
-    "description": "Provides services for PreviewMe meta data.",
-    "version": "v1",
+    "description": "Provides services for Chrome Extension",
+    "version": "v1.2.0",
     "title": "PreviewMe Meta Service"
   },
   "basePath": "https://api.development.previewme.co/previewme-meta-service",
@@ -11,10 +11,10 @@
       "name": "Workspaces"
     },
     {
-      "name": "Authenticated Preview"
+      "name": "Previews"
     },
     {
-      "name": "Public Preview"
+      "name": "Tags"
     }
   ],
   "paths": {
@@ -48,7 +48,7 @@
     "/api/ce/preview/summaries": {
       "get": {
         "tags": [
-          "Authenticated Preview"
+          "Previews"
         ],
         "summary": "Get list of published Previews by Organization Id",
         "description": "",
@@ -61,31 +61,37 @@
             "name": "organizationId",
             "in": "query",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "Get [id] field from invoking [/api/ce/organization]."
           },
           {
             "name": "search",
             "in": "query",
             "required": false,
-            "type": "string"
+            "type": "string",
+            "description": "Filter the results based on search string"
           },
           {
             "name": "tag",
             "in": "query",
             "required": false,
-            "type": "string"
+            "type": "string",
+            "description": "Filter the results based on Tag."
           },
           {
             "name": "page",
             "in": "query",
             "required": false,
-            "type": "integer"
+            "type": "integer",
+            "description": "Use for pagination, current and next page."
           },
           {
             "name": "limit",
             "in": "query",
             "required": false,
-            "type": "integer"
+            "type": "integer",
+            "description": "Use for pagination, limit the rows per page.",
+            "default": "40"
           }
         ],
         "security": [
@@ -106,7 +112,7 @@
     "/api/preview/{previewId}/details": {
       "get": {
         "tags": [
-          "Authenticated Preview"
+          "Previews"
         ],
         "summary": "Get preview details including content blocks and their values",
         "description": "",
@@ -146,7 +152,7 @@
     "/api/preview/{previewId}/updatePublished": {
       "patch": {
         "tags": [
-          "Authenticated Preview"
+          "Previews"
         ],
         "summary": "Set published value to true or false",
         "description": "",
@@ -189,7 +195,7 @@
     "/api/preview/{previewId}/updateTitle": {
       "patch": {
         "tags": [
-          "Authenticated Preview"
+          "Previews"
         ],
         "summary": "Update preview title",
         "description": "",
@@ -232,7 +238,7 @@
     "/api/preview/{previewId}/updateSubtitle": {
       "patch": {
         "tags": [
-          "Authenticated Preview"
+          "Previews"
         ],
         "summary": "Update preview subtitle",
         "description": "",
@@ -275,7 +281,7 @@
     "/api/preview/{previewId}/duplicate": {
       "post": {
         "tags": [
-          "Authenticated Preview"
+          "Previews"
         ],
         "summary": "Duplicate a preview",
         "description": "",
@@ -317,20 +323,20 @@
         }
       }
     },
-    "/api/publishedPreview/{previewId}/details": {
+    "api/tags/organization/{organizationId}": {
       "get": {
         "tags": [
-          "Public Preview"
+          "Tags"
         ],
-        "summary": "Get shareable published preview details including content blocks and their values",
+        "summary": "Get all general tags and tags owned by an organization",
         "description": "",
-        "operationId": "getPreviewDetails_1",
+        "operationId": "getTagsByOrganization",
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
-            "name": "previewId",
+            "name": "organizationId",
             "in": "path",
             "required": true,
             "type": "string"
@@ -340,7 +346,7 @@
           "200": {
             "description": "Operation successful",
             "schema": {
-              "$ref": "#/definitions/PreviewDto"
+              "$ref": "#/definitions/TagList"
             }
           }
         }
@@ -373,6 +379,10 @@
         },
         "lastPublishDate": {
           "type": "string"
+        },
+        "replicable": {
+          "type": "boolean",
+          "description": "A value of [true] means Preview can be duplicated."
         }
       }
     },
@@ -1145,6 +1155,21 @@
       "type": "array",
       "items": {
         "$ref": "#/definitions/Organization"
+      }
+    },
+    "Tag": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique id from Database" },
+        "name": { "type": "string", "description": "Display name of Tag" },
+        "createdAt": { "type": "string", "description": "Date created in ISO 8601 format with UTC time zone representation." },
+        "updatedAt": { "type": "string", "description": "Date updated in ISO 8601 format with UTC time zone representation." }
+      }
+    },
+    "TagList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Tag"
       }
     }
   }
